@@ -10,6 +10,7 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
@@ -22,8 +23,10 @@ import com.hanshaoda.smallreader.base.BaseActivity;
 import com.hanshaoda.smallreader.base.BaseCommonActivity;
 import com.hanshaoda.smallreader.model.ChinaCalendar;
 import com.hanshaoda.smallreader.network.NetWork;
+import com.hanshaoda.smallreader.utils.DateUtils;
 import com.hanshaoda.smallreader.utils.SPUtils;
 import com.hanshaoda.smallreader.utils.webviewutils.ObjectSaveManager;
+import com.orhanobut.logger.Logger;
 import com.robertlevonyan.views.chip.Chip;
 
 import java.util.Calendar;
@@ -85,16 +88,17 @@ public class ChinaCalendarActivity extends BaseCommonActivity {
 
         @Override
         public void onError(Throwable e) {
-
+            Logger.e("onError:" + e.getMessage());
         }
 
         @Override
         public void onNext(ChinaCalendar chinaCalendar) {
-
             if (chinaCalendar.getError_code() == 0) {
+                Logger.e(chinaCalendar.getResult().getData().toString() + "");
+
                 saveObject(chinaCalendar.getResult().getData());
                 initDateView(chinaCalendar.getResult().getData());
-            } else {
+            }else {
                 Toast.makeText(ChinaCalendarActivity.this, "请求数据失败", Toast.LENGTH_SHORT).show();
             }
         }
@@ -103,6 +107,7 @@ public class ChinaCalendarActivity extends BaseCommonActivity {
     private void saveObject(ChinaCalendar.ResultBean.DataBean data) {
         SPUtils.put(this, CHINA_CALENDAR, data.getDate());
         objectSaveManager.saveObject(CHINA_CALENDAR + mDate, data);
+
     }
 
     @Override
@@ -111,65 +116,52 @@ public class ChinaCalendarActivity extends BaseCommonActivity {
     }
 
     @Override
-    public void initView() {
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
+    @Override
+    public void initView() {
         objectSaveManager = ObjectSaveManager.getInstance(this.getApplicationContext());
 
         initToolbar();
-        initFab();
+        initFAB();
+        initDate();
     }
 
-    private void initFab() {
-        mFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                skipToDay();
+    private void initDate() {
+        String nowDate = new StringBuffer()
+                .append(DateUtils.getCurrYear()).append("-")
+                .append(DateUtils.getCurrMonth()).append("-")
+                .append(DateUtils.getCurrDay())
+                .toString();
+
+        if (SPUtils.contains(this, CHINA_CALENDAR)) {
+            mDate = nowDate;
+            ChinaCalendar.ResultBean.DataBean data = (ChinaCalendar.ResultBean.DataBean) objectSaveManager.getObject(CHINA_CALENDAR + nowDate);
+            if (data == null) {
+                requestStarData();
+            }else {
+                initDateView(data);
             }
-        });
+
+        } else {
+            mDate = nowDate;
+            requestStarData();
+        }
     }
 
-    private void skipToDay() {
-        Calendar instance = Calendar.getInstance();
-        final DatePickerDialog mDialog = new DatePickerDialog(this, null, instance.get(Calendar.YEAR),
-                instance.get(Calendar.MONTH), instance.get(Calendar.DAY_OF_MONTH));
-        mDialog.setButton(DialogInterface.BUTTON_POSITIVE, "完成", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                DatePicker datePicker = mDialog.getDatePicker();
-                int year = datePicker.getYear();
-                int month = datePicker.getMonth();
-                int day = datePicker.getDayOfMonth();
-
-                String skipDate = new StringBuffer()
-                        .append(year).append("-")
-                        .append(month).append("-")
-                        .append(day)
-                        .toString();
-                mDate = skipDate;
-                ChinaCalendar.ResultBean.DataBean data = (ChinaCalendar.ResultBean.DataBean)
-                        objectSaveManager.getObject(CHINA_CALENDAR + skipDate);
-
-                if (data == null) {
-                    requestData();
-                } else {
-                    initDateView(data);
-                }
-
-            }
-        });
-
-        mDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "取消", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-
-            }
-        });
-        mDialog.show();
-    }
-
+    /**
+     * 填充数据
+     *
+     * @param data
+     */
     private void initDateView(ChinaCalendar.ResultBean.DataBean data) {
 
-        mTitleChinaCalendar.setText(data.getDate() + "");
+        mTitleChinaCalendar.setText(data.getDate()+"");
 
         String avoid = getStringFormat(data.getAvoid());
         String animalsYear = getStringFormat(data.getAnimalsYear());
@@ -190,6 +182,7 @@ public class ChinaCalendarActivity extends BaseCommonActivity {
         mDate1Ccheader.setText(date);
         mDate2Ccheader.setText(date);
 
+
         String[] avoidArr = avoid.split("\\.", 0);
         String[] suitArr = suit.split("\\.", 0);
 
@@ -197,23 +190,24 @@ public class ChinaCalendarActivity extends BaseCommonActivity {
             mFlexboxlayoutChinaCalendar.removeAllViewsInLayout();
         }
 
-        FlexboxLayout.LayoutParams layoutParams = new FlexboxLayout.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        FlexboxLayout.LayoutParams layoutParams = new FlexboxLayout.LayoutParams
+                (ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
         int flag = 0;
 
-        int[] intArray = getResources().getIntArray(R.array.itemcolor);
+        int[] itemColors = getResources().getIntArray(R.array.itemcolor);
 
         for (int i = 0; i < avoidArr.length; i++) {
             final Chip avoidChip = new Chip(this);
             avoidChip.setHasIcon(true);
             avoidChip.setTextColor(Color.WHITE);
-            avoidChip.changeBackgroundColor(intArray[flag % intArray.length]);
+            avoidChip.changeBackgroundColor(itemColors[flag % itemColors.length]);
+
             avoidChip.setChipText(avoidArr[i]);
             avoidChip.setChipIcon(getResources().getDrawable(R.mipmap.ji));
-
-            Handler avoidHandler = new Handler();
-            avoidHandler.postDelayed(new Runnable() {
+            //Chip 这个自定义控件的问题所在，当更改设置一些属性时，不会自动刷新
+            Handler avoidhandler = new Handler();
+            avoidhandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     avoidChip.requestLayout();
@@ -221,12 +215,11 @@ public class ChinaCalendarActivity extends BaseCommonActivity {
             }, 250);
             mFlexboxlayoutChinaCalendar.addView(avoidChip, flag++, layoutParams);
         }
-
         for (int i = 0; i < suitArr.length; i++) {
             final Chip suitChip = new Chip(this);
             suitChip.setHasIcon(true);
             suitChip.setTextColor(Color.WHITE);
-            suitChip.changeBackgroundColor(intArray[flag % intArray.length]);
+            suitChip.changeBackgroundColor(itemColors[flag % itemColors.length]);
 
             suitChip.setChipText(suitArr[i]);
             suitChip.setChipIcon(getResources().getDrawable(R.mipmap.yi));
@@ -242,28 +235,66 @@ public class ChinaCalendarActivity extends BaseCommonActivity {
 
         mFlexboxlayoutChinaCalendar.requestLayout();
         mFlexboxlayoutChinaCalendar.invalidate();
+
+
     }
 
-    private String getStringFormat(String string) {
-
+    public String getStringFormat(String string) {
         return TextUtils.isEmpty(string) ? "" : string;
     }
 
-    private void requestData() {
-
-        unSubscribe();
-        mSubscription = NetWork.getChinaCalendaraPI()
-                .getChinaCalendar("", mDate)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(mObserver);
+    private void initFAB() {
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                skipToDay();
+            }
+        });
     }
 
-    private void unSubscribe() {
+    private void skipToDay() {
+        Calendar cal = Calendar.getInstance();
+        final DatePickerDialog mDialog = new DatePickerDialog(this, null,
+                cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
 
-        if (mSubscription != null && !mSubscription.isUnsubscribed()) {
-            mSubscription.unsubscribe();
-        }
+        //手动设置按钮
+        mDialog.setButton(DialogInterface.BUTTON_POSITIVE, "完成", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //通过mDialog.getDatePicker()获得dialog上的DatePicker组件，然后可以获取日期信息
+                DatePicker datePicker = mDialog.getDatePicker();
+                int year = datePicker.getYear();
+                int month = datePicker.getMonth();
+                int day = datePicker.getDayOfMonth();
+
+                String skipDate = new StringBuffer()
+                        .append(year).append("-")
+                        .append(month+1).append("-")
+                        .append(day)
+                        .toString();
+                mDate = skipDate;
+
+                ChinaCalendar.ResultBean.DataBean data = (ChinaCalendar.ResultBean.DataBean)
+                        objectSaveManager.getObject(CHINA_CALENDAR + skipDate);
+                if (data == null) {
+                    requestStarData();
+                }else {
+                    initDateView(data);
+                }
+                Logger.e("调整日期："+skipDate+mDate);
+
+//                requestStarData();
+            }
+        });
+        //取消按钮，如果不需要直接不设置即可
+        mDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+
+        mDialog.show();
     }
 
     private void initToolbar() {
@@ -271,8 +302,36 @@ public class ChinaCalendarActivity extends BaseCommonActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
+    private void requestStarData() {
+        unsubscribe();
+        mSubscription = NetWork.getChinaCalendarApi()
+                .getChinaCalendar("3f95b5d789fbc83f5d2f6d2479850e7e", mDate)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(mObserver);
+
+    }
+
+    private void unsubscribe() {
+        if (mSubscription != null && !mSubscription.isUnsubscribed()) {
+            mSubscription.unsubscribe();
+        }
+    }
+
+
     @Override
     public void initPresenter() {
+    }
+
+//    @Subscribe(threadMode = ThreadMode.MAIN)
+//    public void OnRefreshDataEvent(ChinaCalendar.ResultBean.DataBean data) {
+//        initDateView(data);
+//    }
+
+    @Override
+    protected void onDestroy() {
+//        EventBus.getDefault().unregister(this);
+        super.onDestroy();
 
     }
 }

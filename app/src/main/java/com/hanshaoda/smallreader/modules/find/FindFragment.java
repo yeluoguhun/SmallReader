@@ -22,6 +22,7 @@ import com.chad.library.adapter.base.listener.OnItemDragListener;
 import com.flaviofaria.kenburnsview.KenBurnsView;
 import com.hanshaoda.smallreader.R;
 import com.hanshaoda.smallreader.base.BaseFragment;
+import com.hanshaoda.smallreader.base.Html5Activity;
 import com.hanshaoda.smallreader.config.Constant;
 import com.hanshaoda.smallreader.database.FunctionDao;
 import com.hanshaoda.smallreader.model.ChinaCalendar;
@@ -309,24 +310,22 @@ public class FindFragment extends BaseFragment implements View.OnClickListener {
     private void itemActionEvent(String name) {
         switch (name) {
             case "万年历":
-                Toast.makeText(getActivity(), "万年历", Toast.LENGTH_SHORT).show();
-//                startActivity(new Intent());
+                startActivity(new Intent(getContext(), ChinaCalendarActivity.class));
                 break;
             case "快递查询":
-                Toast.makeText(getActivity(), "快递查询", Toast.LENGTH_SHORT).show();
-//                startActivity(new Intent());
+                Bundle bundle = new Bundle();
+                bundle.putString("url", "https://m.kuaidi100.com/");
+                startActivity(new Intent(getContext(), Html5Activity.class).putExtra("bundle", bundle));
                 break;
             case "笑话大全":
-                Toast.makeText(getActivity(), "笑话大全", Toast.LENGTH_SHORT).show();
-//                startActivity(new Intent());
+                startActivity(new Intent(getContext(), JokeActivity.class));
                 break;
             case "星座运势":
-                Toast.makeText(getActivity(), "星座运势", Toast.LENGTH_SHORT).show();
-//                startActivity(new Intent());
+                startActivity(new Intent(getContext(), ConstellationActivity.class));
                 break;
             case "手机归属地":
-                Toast.makeText(getActivity(), "手机归属地", Toast.LENGTH_SHORT).show();
-//                startActivity(new Intent());
+                startActivity(new Intent(getContext(), QueryInfoActivity.class)
+                        .putExtra(QueryInfoActivity.QUERY_STYLE, QueryInfoActivity.QUERY_TEL));
                 break;
             case "更多":
                 Toast.makeText(getActivity(), "更多", Toast.LENGTH_SHORT).show();
@@ -411,7 +410,7 @@ public class FindFragment extends BaseFragment implements View.OnClickListener {
                 .append(DateUtils.getCurrMonth()).append("-")
                 .append(DateUtils.getCurrDay()).toString();
         unsubscribe("chinacalendar");
-        mCalendarSubscribe = NetWork.getChinaCalendaraPI()
+        mCalendarSubscribe = NetWork.getChinaCalendarApi()
                 .getChinaCalendar("3f95b5d789fbc83f5d2f6d2479850e7e", mDate)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

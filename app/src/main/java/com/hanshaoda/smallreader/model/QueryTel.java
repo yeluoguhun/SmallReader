@@ -114,5 +114,14 @@ public class QueryTel {
         public void setCard(String card) {
             this.card = card;
         }
+
+        @Override
+        public String toString() {
+            return
+                    "省份：'" + province + '\'' +
+                    ", 城市：'" + city + '\'' +
+                    ", 区域编码：'" + areacode + '\'' +
+                    ", 运营商：'" + company;
+        }
     }
 }

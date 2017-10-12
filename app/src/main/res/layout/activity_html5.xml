@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.hanshaoda.smallreader.widget.SlidingLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_html5"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    app:sliding_mode="top"
+    app:top_max="100dp"
+    app:background_view="@layout/bg_sliding_layout"
+    tools:context="com.hanshaoda.smallreader.base.Html5Activity">
+
+</com.hanshaoda.smallreader.widget.SlidingLayout>

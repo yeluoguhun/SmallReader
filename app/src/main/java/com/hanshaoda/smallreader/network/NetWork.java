@@ -286,7 +286,7 @@ public class NetWork {
         return mYearConstellationsApi;
     }
 
-    public static ChinaCalendarApi getChinaCalendaraPI() {
+    public static ChinaCalendarApi getChinaCalendarApi() {
         if (mChinaCalendarApi == null) {
             Retrofit retrofit = new Retrofit.Builder()
                     .client(okHttpClient)

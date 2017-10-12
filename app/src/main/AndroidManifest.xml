@@ -81,8 +81,9 @@
         <activity
             android:name=".modules.me.ZxingActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".modules.find.PinImageActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".modules.find.PinImageActivity"
+            android:screenOrientation="portrait" />
 
         <service
             android:name="com.xiaomi.push.service.XMJobService"
@@ -135,44 +136,51 @@
 
         <activity android:name=".modules.find.joke.JokeActivity" />
         <activity android:name=".modules.find.chinacalendar.ChinaCalendarActivity" />
-        <activity android:name=".modules.find.constellation.ConstellationActivity"/>
+        <activity android:name=".modules.find.constellation.ConstellationActivity" />
 
         <!-- ShareSDK的activity -->
         <activity
             android:name="com.mob.tools.MobUIShell"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:windowSoftInputMode="stateHidden|adjustResize" >
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustResize">
 
             <!-- 调用新浪原生SDK，需要注册的回调activity -->
             <intent-filter>
                 <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
 
-            <!--集成line客户端登录授权，需要添如下格式的过滤器-->
+            <!-- 集成line客户端登录授权，需要添如下格式的过滤器 -->
             <intent-filter>
                 <data android:scheme="line.1477692153" />
-                <action android:name="android.intent.action.VIEW"/>
+
+                <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.BROWSABLE" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
 
-            <!--&lt;!&ndash; ShareSDK3.1.0版本之前才需要在MobUIShell下面注册此意图，3.1.0版本之后（包含3.1.0）不需要注册此intent&ndash;&gt;-->
-            <!--<intent-filter>-->
-                <!--<data android:scheme="tencent100371282" />-->
-                <!--<action android:name="android.intent.action.VIEW" />-->
-                <!--<category android:name="android.intent.category.BROWSABLE" />-->
-                <!--<category android:name="android.intent.category.DEFAULT" />-->
-            <!--</intent-filter>-->
+            <!-- &lt;!&ndash; ShareSDK3.1.0版本之前才需要在MobUIShell下面注册此意图，3.1.0版本之后（包含3.1.0）不需要注册此intent&ndash;&gt; -->
+            <!-- <intent-filter> -->
+            <!-- <data android:scheme="tencent100371282" /> -->
+            <!-- <action android:name="android.intent.action.VIEW" /> -->
+            <!-- <category android:name="android.intent.category.BROWSABLE" /> -->
+            <!-- <category android:name="android.intent.category.DEFAULT" /> -->
+            <!-- </intent-filter> -->
         </activity>
         <activity
             android:name=".wxapi.WXEntryActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
-            android:screenOrientation="portrait" />
-
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity
+            android:name=".base.Html5Activity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WebTheme" />
+        <activity android:name=".modules.find.QueryInfoActivity"></activity>
     </application>
 
 </manifest>
