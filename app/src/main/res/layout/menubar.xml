@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <com.hanshaoda.smallreader.widget.TabBar_Mains
+        android:id="@+id/recommend_mains"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:visibility="gone"
+        app:icon="@drawable/tabber_main_news"
+        app:name="资讯" />
+
+    <com.hanshaoda.smallreader.widget.TabBar_Mains
+        android:id="@+id/wechat_mains"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        app:icon="@drawable/tabber_main_wechat"
+        app:name="微信精选" />
+
+    <com.hanshaoda.smallreader.widget.TabBar_Mains
+        android:id="@+id/finds_mains"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        app:icon="@drawable/tabber_main_find"
+        app:name="发现" />
+
+    <com.hanshaoda.smallreader.widget.TabBar_Mains
+        android:id="@+id/me_mains"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        app:icon="@drawable/tabber_main_me"
+        app:name="我的" />
+
+</LinearLayout>

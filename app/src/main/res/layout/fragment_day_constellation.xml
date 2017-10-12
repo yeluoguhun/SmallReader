@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.github.mikephil.charting.charts.RadarChart
+            android:id="@+id/radar_chat_day_star"
+            android:layout_width="match_parent"
+            android:layout_height="450dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:orientation="horizontal">
+
+            <com.hanshaoda.smallreader.widget.custom.MapTextView
+                android:id="@+id/lucky_color_day_star"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                app:keyText="幸运颜色" />
+
+            <com.hanshaoda.smallreader.widget.custom.MapTextView
+                android:id="@+id/lucky_number_day_star"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                app:keyText="幸运数字" />
+
+            <com.hanshaoda.smallreader.widget.custom.MapTextView
+                android:id="@+id/lucky_love_day_star"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:keyText="速配星座" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_year_star"
+            android:text="今日概述"
+            android:textColor="@color/white"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/summary_day_star"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_text_view_shape"
+            android:elevation="3dp"
+            android:padding="10dp"
+            android:textColor="@color/colorAccent" />
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

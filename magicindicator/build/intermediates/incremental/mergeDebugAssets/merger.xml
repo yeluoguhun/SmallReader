@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="main"><source path="/Users/hanshaoda/Documents/project/SmallReader/magicindicator/src/main/assets"/><source path="/Users/hanshaoda/Documents/project/SmallReader/magicindicator/build/generated/assets/shaders/debug"/></dataSet><dataSet config="debug"><source path="/Users/hanshaoda/Documents/project/SmallReader/magicindicator/src/debug/assets"/></dataSet></merger>
