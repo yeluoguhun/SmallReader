@@ -42,7 +42,7 @@ import rx.schedulers.Schedulers;
 /**
  * author: hanshaoda
  * created on: 2017/9/12 下午3:57
- * description:
+ * description: 微信精选页面
  */
 public class WechatFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, BaseQuickAdapter.RequestLoadMoreListener {
     private static final String ARG_PARAM1 = "param1";
@@ -162,6 +162,9 @@ public class WechatFragment extends BaseFragment implements SwipeRefreshLayout.O
         requestData();
     }
 
+    /**
+     * 请求数据
+     */
     private void requestData() {
         unsubscribe();
         mSubscribe = NetWork.getWechatApi()
@@ -171,17 +174,26 @@ public class WechatFragment extends BaseFragment implements SwipeRefreshLayout.O
                 .subscribe(mObserver);
     }
 
+    /**
+     * 解除observer
+     */
     private void unsubscribe() {
         if (mSubscribe != null && !mSubscribe.isUnsubscribed()) {
             mSubscribe.unsubscribe();
         }
     }
 
+    /**
+     * 正在加载
+     */
     private void onLoading() {
 
         mWechatItemAdapter.setEmptyView(R.layout.loading_view, (ViewGroup) mRecyclerWechat.getParent());
     }
 
+    /**
+     * 设置recyclerView
+     */
     private void initRecyclerView() {
 
         mRecyclerWechat.setLayoutManager(new GridLayoutManager(getContext().getApplicationContext(), 2));
@@ -191,8 +203,8 @@ public class WechatFragment extends BaseFragment implements SwipeRefreshLayout.O
         int imgHeight = imgWidth * 3 / 4;
 
         mWechatItemAdapter = new WechatItemAdapter(mListBeanList, isNotLoad, imgWidth, imgHeight);
-        mWechatItemAdapter.openLoadAnimation();
-        mWechatItemAdapter.setOnLoadMoreListener(this);
+        mWechatItemAdapter.openLoadAnimation();//加载动画默认
+        mWechatItemAdapter.setOnLoadMoreListener(this);//开启加载更多
         mWechatItemAdapter.setSpanSizeLookup(new BaseQuickAdapter.SpanSizeLookup() {
             @Override
             public int getSpanSize(GridLayoutManager gridLayoutManager, int position) {
@@ -208,7 +220,6 @@ public class WechatFragment extends BaseFragment implements SwipeRefreshLayout.O
         mRecyclerWechat.addOnItemTouchListener(new OnItemClickListener() {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                Logger.e("是否点击");
                 WechatItem.ResultBean.ListBean listBean = (WechatItem.ResultBean.ListBean) adapter.getData().get(position);
                 Intent intent = new Intent(getContext(), WechatDetailsActivity.class);
                 intent.putExtra("wechat", listBean);
@@ -220,6 +231,9 @@ public class WechatFragment extends BaseFragment implements SwipeRefreshLayout.O
         });
     }
 
+    /**
+     * 空布局、错误布局
+     */
     private void initEmptyView() {
         notDataView = getActivity().getLayoutInflater().inflate(R.layout.empty_view, (ViewGroup) mRecyclerWechat.getParent(), false);
 
@@ -227,6 +241,9 @@ public class WechatFragment extends BaseFragment implements SwipeRefreshLayout.O
         errorView = getActivity().getLayoutInflater().inflate(R.layout.error_view, (ViewGroup) mRecyclerWechat.getParent(), false);
     }
 
+    /**
+     * 设置SwipeView
+     */
     private void initSwipeRefresh() {
 
         mSwiperWechat.setOnRefreshListener(this);
@@ -234,6 +251,9 @@ public class WechatFragment extends BaseFragment implements SwipeRefreshLayout.O
         mSwiperWechat.setEnabled(false);
     }
 
+    /**
+     * 设置悬浮按钮
+     */
     private void initFab() {
         mFabWechat.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -250,6 +270,9 @@ public class WechatFragment extends BaseFragment implements SwipeRefreshLayout.O
 
     }
 
+    /**
+     * 下拉刷新
+     */
     @Override
     public void onRefresh() {
         mWechatItemAdapter.setEnableLoadMore(false);
@@ -258,6 +281,9 @@ public class WechatFragment extends BaseFragment implements SwipeRefreshLayout.O
         requestData();
     }
 
+    /**
+     * 加载更多的请求
+     */
     @Override
     public void onLoadMoreRequested() {
         mSwiperWechat.setEnabled(false);

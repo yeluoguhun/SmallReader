@@ -31,7 +31,7 @@ import cn.sharesdk.framework.ShareSDK;
 /**
  * author: hanshaoda
  * created on: 2017/9/14 下午5:58
- * description:
+ * description: 新闻详情页面
  */
 public class WechatDetailsActivity extends BaseCommonActivity {
     @BindView(R.id.iv_image)
@@ -66,11 +66,17 @@ public class WechatDetailsActivity extends BaseCommonActivity {
         initWebView();
     }
 
+    /**
+     * 初始化
+     */
     private void initWebView() {
         Logger.e("得到的URL=" + mWechat.getUrl());
         mWebViewWeChat.loadUrl(mWechat.getUrl());
     }
 
+    /**
+     * 悬浮按钮点击事件
+     */
     private void initFab() {
         mFabShare.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,6 +86,9 @@ public class WechatDetailsActivity extends BaseCommonActivity {
         });
     }
 
+    /**
+     * 初始化数据
+     */
     private void initData() {
 
         boolean isNotLoad = (boolean) SPUtils.get(this, Constant.SLLMS, false);
@@ -90,11 +99,17 @@ public class WechatDetailsActivity extends BaseCommonActivity {
         getSupportActionBar().setTitle(mWechat.getTitle());
     }
 
+    /**
+     * 初始化标题
+     */
     private void initToolbar() {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
+    /**
+     * 设置传递的值
+     */
     private void initGetIntent() {
         Intent intent = getIntent();
         mWechat = intent.getParcelableExtra("wechat");

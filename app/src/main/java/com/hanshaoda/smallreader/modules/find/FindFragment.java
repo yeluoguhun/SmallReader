@@ -57,7 +57,7 @@ import rx.schedulers.Schedulers;
 /**
  * author: hanshaoda
  * created on: 2017/9/12 下午3:58
- * description:
+ * description:发现页面
  */
 public class FindFragment extends BaseFragment implements View.OnClickListener {
     private static final String ARG_PARAM1 = "param1";
