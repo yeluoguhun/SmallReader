@@ -41,6 +41,15 @@ public class ImageUtils {
                 .into(view);
     }
 
+    public static void loadingImgUrl(Context context, String url, int errorImage, int palce, int crossFade, ImageView view) {
+        Glide.with(context)
+                .load(url)
+                .placeholder(palce)
+                .error(errorImage)
+                .crossFade(crossFade)
+                .into(view);
+    }
+
     public static void loadingImgRes(Context context, int resId, ImageView view) {
         Glide.with(context)
                 .load(resId)

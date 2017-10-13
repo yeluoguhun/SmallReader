@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.hanshaoda.smallreader.R;
 import com.hanshaoda.smallreader.base.BaseFragment;
 import com.hanshaoda.smallreader.config.Constant;
@@ -23,6 +24,7 @@ import com.hanshaoda.smallreader.model.WechatItem;
 import com.hanshaoda.smallreader.network.NetWork;
 import com.hanshaoda.smallreader.utils.PixelUtil;
 import com.hanshaoda.smallreader.utils.SPUtils;
+import com.orhanobut.logger.Logger;
 
 import org.greenrobot.greendao.annotation.Id;
 
@@ -203,9 +205,10 @@ public class WechatFragment extends BaseFragment implements SwipeRefreshLayout.O
             }
         });
         mRecyclerWechat.setAdapter(mWechatItemAdapter);
-        mRecyclerWechat.addOnItemTouchListener(new OnItemChildClickListener() {
+        mRecyclerWechat.addOnItemTouchListener(new OnItemClickListener() {
             @Override
-            public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                Logger.e("是否点击");
                 WechatItem.ResultBean.ListBean listBean = (WechatItem.ResultBean.ListBean) adapter.getData().get(position);
                 Intent intent = new Intent(getContext(), WechatDetailsActivity.class);
                 intent.putExtra("wechat", listBean);
@@ -213,7 +216,6 @@ public class WechatFragment extends BaseFragment implements SwipeRefreshLayout.O
                         view.findViewById(R.id.img_wechat_style),
                         "transition_wechat_img");
                 ActivityCompat.startActivity(getContext(), intent, optionsCompat.toBundle());
-
             }
         });
     }
