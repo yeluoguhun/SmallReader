@@ -98,7 +98,7 @@ public class ChinaCalendarActivity extends BaseCommonActivity {
 
                 saveObject(chinaCalendar.getResult().getData());
                 initDateView(chinaCalendar.getResult().getData());
-            }else {
+            } else {
                 Toast.makeText(ChinaCalendarActivity.this, "请求数据失败", Toast.LENGTH_SHORT).show();
             }
         }
@@ -144,7 +144,7 @@ public class ChinaCalendarActivity extends BaseCommonActivity {
             ChinaCalendar.ResultBean.DataBean data = (ChinaCalendar.ResultBean.DataBean) objectSaveManager.getObject(CHINA_CALENDAR + nowDate);
             if (data == null) {
                 requestStarData();
-            }else {
+            } else {
                 initDateView(data);
             }
 
@@ -161,7 +161,7 @@ public class ChinaCalendarActivity extends BaseCommonActivity {
      */
     private void initDateView(ChinaCalendar.ResultBean.DataBean data) {
 
-        mTitleChinaCalendar.setText(data.getDate()+"");
+        mTitleChinaCalendar.setText(data.getDate() + "");
 
         String avoid = getStringFormat(data.getAvoid());
         String animalsYear = getStringFormat(data.getAnimalsYear());
@@ -270,7 +270,7 @@ public class ChinaCalendarActivity extends BaseCommonActivity {
 
                 String skipDate = new StringBuffer()
                         .append(year).append("-")
-                        .append(month+1).append("-")
+                        .append(month + 1).append("-")
                         .append(day)
                         .toString();
                 mDate = skipDate;
@@ -279,10 +279,10 @@ public class ChinaCalendarActivity extends BaseCommonActivity {
                         objectSaveManager.getObject(CHINA_CALENDAR + skipDate);
                 if (data == null) {
                     requestStarData();
-                }else {
+                } else {
                     initDateView(data);
                 }
-                Logger.e("调整日期："+skipDate+mDate);
+                Logger.e("调整日期：" + skipDate + mDate);
 
 //                requestStarData();
             }
@@ -297,8 +297,12 @@ public class ChinaCalendarActivity extends BaseCommonActivity {
         mDialog.show();
     }
 
+    /**
+     * 初始化标题
+     */
     private void initToolbar() {
         setSupportActionBar(mToolbar);
+        getSupportActionBar().setTitle("老黄历");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
