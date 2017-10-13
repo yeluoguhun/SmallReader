@@ -182,6 +182,10 @@ public class FindFragment extends BaseFragment implements View.OnClickListener {
     };
     private Subscription mDayJokeSubscribe;
 
+    /**
+     * 填充数据
+     * @param data 数据源
+     */
     private void initDateView(ChinaCalendar.ResultBean.DataBean data) {
         mJieriCalendar.setText(data.getHoliday() + "");
         mNongliCalendar.setText("农历" + data.getLunar());
@@ -258,10 +262,13 @@ public class FindFragment extends BaseFragment implements View.OnClickListener {
 
         initBg();
         initBottomContext();
-        initRecy();
+        initRecycler();
     }
 
-    private void initRecy() {
+    /**
+     * 初始化recycler
+     */
+    private void initRecycler() {
         mFindList = initData();
 
         mRecyclerFind.setLayoutManager(new GridLayoutManager(getContext(), 3));
@@ -307,6 +314,10 @@ public class FindFragment extends BaseFragment implements View.OnClickListener {
         });
     }
 
+    /**
+     * 点击事件
+     * @param name 名称
+     */
     private void itemActionEvent(String name) {
         switch (name) {
             case "万年历":
@@ -328,7 +339,7 @@ public class FindFragment extends BaseFragment implements View.OnClickListener {
                         .putExtra(QueryInfoActivity.QUERY_STYLE, QueryInfoActivity.QUERY_TEL));
                 break;
             case "更多":
-                Toast.makeText(getActivity(), "更多", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "暂未开通", Toast.LENGTH_SHORT).show();
 //                startActivity(new Intent());
                 break;
             default:
@@ -359,6 +370,9 @@ public class FindFragment extends BaseFragment implements View.OnClickListener {
         return list;
     }
 
+    /**
+     * 屏幕下方内容
+     */
     private void initBottomContext() {
 
         boolean startIsOpen = (boolean) SPUtils.get(getContext(), Constant.STAR_IS_OPEN, true);
@@ -403,6 +417,9 @@ public class FindFragment extends BaseFragment implements View.OnClickListener {
 
     }
 
+    /**
+     * 请求万年历
+     */
     private void requestWanNianLi() {
 
         String mDate = new StringBuilder()
@@ -418,6 +435,9 @@ public class FindFragment extends BaseFragment implements View.OnClickListener {
 
     }
 
+    /**
+     * 请求笑话
+     */
     private void requestJoke() {
 
         unsubscribe("joke");
@@ -428,6 +448,10 @@ public class FindFragment extends BaseFragment implements View.OnClickListener {
                 .subscribe(mDayJokeObserver);
     }
 
+    /**
+     * 请求星座
+     * @param starName 星座名称
+     */
     private void requestStarData(String starName) {
 
         unsubscribe("star");
@@ -438,12 +462,14 @@ public class FindFragment extends BaseFragment implements View.OnClickListener {
                 .subscribe(mConstellationObserver);
     }
 
-
+    /**
+     * 初始化背景图片
+     */
     private void initBg() {
 
         mBeforeFind.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view) {//按钮切换点击
                 if (mImages != null) {
                     setBg(--mBgFlag);
                 }
@@ -452,7 +478,7 @@ public class FindFragment extends BaseFragment implements View.OnClickListener {
 
         mNextFind.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view) {//按钮切换点击
                 if (mImages != null) {
                     setBg(++mBgFlag);
                 }
@@ -461,7 +487,7 @@ public class FindFragment extends BaseFragment implements View.OnClickListener {
 
         mBgTitleFind.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view) {//查看图片
                 if (!TextUtils.isEmpty(mNowBgUrl)) {
                     Intent intent = new Intent(getContext(), PinImageActivity.class);
                     intent.putExtra(PinImageActivity.IMG_NAME, TextUtils.isEmpty(mNowBgName) ? "" : mNowBgName);
@@ -478,6 +504,9 @@ public class FindFragment extends BaseFragment implements View.OnClickListener {
         requestBg();
     }
 
+    /**
+     * 请求图片数据
+     */
     private void requestBg() {
 
         unsubscribe("bg");
