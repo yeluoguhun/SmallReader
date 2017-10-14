@@ -68,4 +68,10 @@ dependencies {
     compile 'com.github.PhilJay:MPAndroidChart:v3.0.1'
     compile 'com.robertlevonyan.view:MaterialChipView:1.0.1'
     compile 'com.google.android:flexbox:0.2.6'
+
+    compile 'de.hdodenhof:circleimageview:2.1.0'
+
+    compile 'com.jph.takephoto:takephoto_library:4.0.3'
+
+    compile 'com.prolificinteractive:material-calendarview:1.4.3'
 }

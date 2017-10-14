@@ -16,7 +16,7 @@ public class Constant {
     public static final String FIRST_OPEN = "first_open";
 
     public static final String USER_NAME = "user_name";
-    public static final String USER_GEYAN = "user_geyan";
+    public static final String USER_MOTTO = "user_geyan";
     public static final String USER_SEX = "user_gender";
     public static final String USER_STAR = "user_constellation";
     public static final String USER_ADDRESS = "user_address";
@@ -29,4 +29,12 @@ public class Constant {
     public static final String STAR_IS_OPEN = "today_in_history";
     public static final String STUFF_IS_OPEN = "stuff";
     public static final String JOKE_IS_OPEN = "joke";
+
+
+    public static final String USER_ADDRESS_CITY = "user_address_city";
+    public static final String USER_ADDRESS_CNTY = "user_address_cnty";
+    public static final String USER_ADDRESS_ID = "user_address_id";
+    public static final String USER_ADDRESS_LAT = "user_address_lat";
+    public static final String USER_ADDRESS_LON = "user_address_lon";
+    public static final String USER_ADDRESS_PROV = "user_address_prov";
 }

@@ -31,6 +31,7 @@ import java.util.Locale;
  */
 public class BaseApplication extends Application {
 
+    public static final boolean USE_SAMPLE_DATA = false;
     public static final String APP_ID = "2882303761517567158";
     public static final String APP_KEY = "5951756743158";
     public static final String TAG = "com.hanshaoda.smallreader.app";

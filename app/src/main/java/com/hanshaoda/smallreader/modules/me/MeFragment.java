@@ -1,16 +1,13 @@
 package com.hanshaoda.smallreader.modules.me;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.hanshaoda.smallreader.R;
@@ -23,9 +20,7 @@ import com.hanshaoda.smallreader.utils.SPUtils;
 import java.io.File;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
@@ -78,7 +73,7 @@ public class MeFragment extends BaseFragment {
     private void initUserInfo() {
         String username = (String) SPUtils.get(getContext(), Constant.USER_NAME, "");
         String userheader = (String) SPUtils.get(getContext(), Constant.USER_HEADER, "");
-        String usergeyan = (String) SPUtils.get(getContext(), Constant.USER_GEYAN, "我愿做你世界的太阳，给你温暖");
+        String usergeyan = (String) SPUtils.get(getContext(), Constant.USER_MOTTO, "我愿做你世界的太阳，给你温暖");
 
         if (!TextUtils.isEmpty(username)) {
             mUsernameMe.setText(username);
@@ -104,22 +99,27 @@ public class MeFragment extends BaseFragment {
                 startActivity(new Intent(getContext(), CalenderActivity.class));
                 break;
             case R.id.me_weather:
-                startActivity(new Intent(getContext(), WeatherActivity.class));
+//                startActivity(new Intent(getContext(), WeatherActivity.class));
+                Toast.makeText(getContext(), "暂未开通", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.me_led:
-                startActivity(new Intent(getContext(), LEDActivity.class));
+//                startActivity(new Intent(getContext(), LEDActivity.class));
+                Toast.makeText(getContext(), "暂未开通", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.me_torch:
-                startActivity(new Intent(getContext(), FlashActivity.class));
+//                startActivity(new Intent(getContext(), FlashActivity.class));
+                Toast.makeText(getContext(), "暂未开通", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.me_code:
-                startActivity(new Intent(getContext(), ZxingActivity.class));
+//                startActivity(new Intent(getContext(), ZxingActivity.class));
+                Toast.makeText(getContext(), "暂未开通", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.me_setting:
-                startActivity(new Intent(getContext(), SettingActivity.class));
+//                startActivity(new Intent(getContext(), SettingActivity.class));
+                Toast.makeText(getContext(), "暂未开通", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.fab:
-                startActivity(new Intent(getContext(), UserInfoActivity.class));
+//                startActivity(new Intent(getContext(), UserInfoActivity.class));
                 break;
             default:
                 break;

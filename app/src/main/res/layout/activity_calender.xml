@@ -1,8 +1,154 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:theme="@style/AppTheme.AppBarOverlay">
 
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar_calendar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:title="日历"
+            app:titleTextColor="@color/white" />
+    </android.support.design.widget.AppBarLayout>
+
+<com.prolificinteractive.materialcalendarview.MaterialCalendarView
+    android:id="@+id/calendarView_calendar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#999999"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp">
+        <TextView
+            android:id="@+id/distance_today_calendar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|left"
+            android:text="30"
+            android:textColor="@color/secondary_text"
+            android:textSize="12dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|left"
+            android:text="天"
+            android:textColor="@color/secondary_text"
+            android:textSize="12dp"/>
+        <TextView
+            android:id="@+id/beforeOrBack_calendar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|left"
+            android:text="后"
+            android:textColor="@color/secondary_text"
+            android:textSize="12dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="农历"
+            android:textColor="@color/secondary_text"
+            android:textSize="12dp"/>
+        <TextView
+            android:id="@+id/nongli_date_calendar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="三月十五"
+            android:textColor="@color/secondary_text"
+            android:textSize="12dp"/>
+        <TextView
+            android:id="@+id/holiday_date_calendar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="儿童节"
+            android:textSize="12dp"
+            android:textColor="@color/secondary_text"/>
+        <TextView
+            android:id="@+id/cyclical_calendar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|right"
+            android:layout_marginRight="3dp"
+            android:text="丁酉"
+            android:textColor="@color/secondary_text"
+            android:textSize="12dp"/>
+        <TextView
+            android:id="@+id/animals_year_calendar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|right"
+            android:layout_marginRight="3dp"
+            android:text="鸡年"
+            android:textColor="@color/secondary_text"
+            android:textSize="12dp"/>
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#999999"/>
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:stretchColumns="0,2,4">
+        <TableRow>
+            <TextView
+                android:id="@+id/back_today_calendar"
+                android:gravity="center"
+                android:paddingBottom="15dp"
+                android:paddingTop="15dp"
+                android:text="返回今天"
+                android:textColor="@color/secondary_text"/>
+
+            <TextView
+                android:layout_width="1px"
+                android:background="@android:color/darker_gray"
+                />
+
+            <TextView
+                android:id="@+id/month_view_calendar"
+                android:gravity="center"
+                android:paddingBottom="15dp"
+                android:paddingTop="15dp"
+                android:text="月视图"
+                android:textColor="@color/secondary_text"/>
+
+            <TextView
+                android:layout_width="1px"
+                android:background="@android:color/darker_gray"
+                />
+
+            <TextView
+                android:id="@+id/week_view_calendar"
+                android:gravity="center"
+                android:paddingBottom="15dp"
+                android:paddingTop="15dp"
+                android:text="周视图"
+                android:textColor="@color/secondary_text"/>
+        </TableRow>
+    </TableLayout>
 </LinearLayout>

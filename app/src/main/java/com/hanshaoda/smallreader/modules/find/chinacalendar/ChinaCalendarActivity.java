@@ -19,7 +19,6 @@ import android.widget.Toast;
 
 import com.google.android.flexbox.FlexboxLayout;
 import com.hanshaoda.smallreader.R;
-import com.hanshaoda.smallreader.base.BaseActivity;
 import com.hanshaoda.smallreader.base.BaseCommonActivity;
 import com.hanshaoda.smallreader.model.ChinaCalendar;
 import com.hanshaoda.smallreader.network.NetWork;
@@ -306,6 +305,9 @@ public class ChinaCalendarActivity extends BaseCommonActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
+    /**
+     * 请求数据
+     */
     private void requestStarData() {
         unsubscribe();
         mSubscription = NetWork.getChinaCalendarApi()
